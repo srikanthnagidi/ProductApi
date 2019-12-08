@@ -9,6 +9,9 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * Declares the product class , related variables and methods.
+ */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Product {
@@ -95,5 +98,14 @@ public class Product {
 
     public void setAvailability(Boolean availability) {
         this.availability = availability;
+    }
+
+    /**
+     * It calculates the discount percentage
+     * @returns the discount percentage.
+     */
+    public float discountPercentge(){
+        double number =(((retailPrice- discountedPrice)/retailPrice) * 100);
+        return (float)number;
     }
 }
