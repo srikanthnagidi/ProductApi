@@ -1,10 +1,39 @@
 package com.hackerrank.eshopping.product.dashboard.model;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Product {
+    @Id
     private Long id;
+
     private String name;
     private String category;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", retailPrice=" + retailPrice +
+                ", discountedPrice=" + discountedPrice +
+                ", availability=" + availability +
+                '}';
+    }
+
+    @JsonProperty(value = "retail_price")
     private Double retailPrice;
+
+    @JsonProperty(value = "discounted_price")
     private Double discountedPrice;
     private Boolean availability;
 
