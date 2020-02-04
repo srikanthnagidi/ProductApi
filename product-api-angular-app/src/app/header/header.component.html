@@ -1,0 +1,14 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">Product Dashboard</a>
+      <ul class="nav navbar-nav">
+        <li><a href="login" *ngIf = "!isLoggedIn">Login</a></li>
+        <li><a href="getProducts"  *ngIf = "isLoggedIn">Products</a></li>
+        <li><a href="addProduct"  *ngIf = "isLoggedIn">Add Product</a></li>
+        <li><a href="updateProduct"  *ngIf = "isLoggedIn">Update Product</a></li>
+        <li><a href="login" *ngIf = "isLoggedIn" (click) = "logout()">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
