@@ -17,20 +17,20 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
-              <form id="login-form" action="getProducts" method="post" role="form"
-                style="display: block;">
+              <form id="login-form" action="getProducts" method="post" role="form" style="display: block;">
                 <div class="form-group">
                   <input type="text" name="username" id="username" required [(ngModel)]="username" class="form-control"
                     placeholder="Username" value="">
                 </div>
                 <div class="form-group">
-                  <input type="password" name="password" id="password" required [(ngModel)]="password" class="form-control"
-                    placeholder="Password">
+                  <input type="password" name="password" id="password" required [(ngModel)]="password"
+                    class="form-control" placeholder="Password">
                 </div>
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
-                      <button type="submit" name="login-submit" id="login-submit" (click) = "login()" class="btn btn-primary" value="Log In">Login</button>
+                      <button type="submit" name="login-submit" id="login-submit" (click)="login()"
+                        class="btn btn-primary" value="Log In">Login</button>
                     </div>
                   </div>
                 </div>

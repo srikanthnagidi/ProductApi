@@ -1,6 +1,7 @@
 package com.eshopping.product.dashboard.controller;
 
 import com.eshopping.product.dashboard.model.User;
+import com.eshopping.product.dashboard.model.requests.CreateUserRequest;
 import com.eshopping.product.dashboard.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,13 +24,15 @@ public class UserController {
 
 
     @PostMapping("/sign-up")
-    public ResponseEntity<?> signUp(@RequestBody User user) {
-        Optional<User> user1 = userRepository.findByUsername(user.getUsername());
-        if (user1.isPresent()){
-            return ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> signUp(@RequestBody CreateUserRequest createUserRequest) {
+        User user = new User();
+        user.setUsername(createUserRequest.getUsername());
+        if ((createUserRequest.getPassword().length() < 7) ||
+                !createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
+            return ResponseEntity.badRequest().build();
         }
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
         userRepository.save(user);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

@@ -1,18 +1,24 @@
 <app-header></app-header>
 <div class="container">
-
+  <div class="panel-heading">
+    <div class="col-xs-6">
+      <a href="login" class="active" id="login-form-link">Login</a>
+    </div>
+    <div class="col-xs-6">
+      <a href="sign-up" id="register-form-link">Register</a>
+    </div>
+  </div>
   <div style="margin: 30px">
-    <h1 class="ion-text-center">Register</h1>
     <form [formGroup]="loginForm">
       <div class="form-group">
         <label>Username*</label>
-        <input class="form-control" formControlName="username" type="text" name="username"/>
+        <input class="form-control" formControlName="username" type="text" name="username" />
       </div>
       <div class="error-messages">
         <ng-container *ngFor="let error of error_messages.fname">
           <div class="error-message"
             *ngIf="loginForm.get('fname').hasError(error.type) && (loginForm.get('fname').dirty || loginForm.get('fname').touched)">
-                Username is required
+            Username is required
           </div>
         </ng-container>
       </div>
@@ -42,7 +48,7 @@
           </div>
         </ng-container>
       </div>
-      <button class="form-control btn btn-primary" [disabled]="!loginForm.valid" (click) = "signUp()">Signup</button>
+      <button class="form-control btn btn-primary" [disabled]="!loginForm.valid" (click)="signUp()">Signup</button>
     </form>
   </div>
 </div>
