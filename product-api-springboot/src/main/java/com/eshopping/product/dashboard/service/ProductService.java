@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.*;
@@ -30,6 +31,7 @@ public class ProductService {
      * @param id the ID number of the product to gather information.
      * @return the requested product information
      */
+    @Transactional(readOnly = true)
     public Product getProduct(Long id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
@@ -46,6 +48,7 @@ public class ProductService {
      * @param product A product object which can be either new or existing
      * @return the new product is stored in the repository
      */
+    @Transactional
     public Product save(Product product) {
         Optional<Product> optionalProduct = productRepository.findById(product.getId());
         if (optionalProduct.isPresent()) {
@@ -62,6 +65,7 @@ public class ProductService {
      * @return the updated product is stored in the repository
      * @throws IOException
      */
+    @Transactional
     public Product productUpdate(Long id, String json) throws IOException {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
@@ -85,6 +89,7 @@ public class ProductService {
      *
      * @return all the products in the product repository.
      */
+    @Transactional(readOnly = true)
     public Iterable<Product> findAllProducts() {
         return productRepository.findAll();
     }
@@ -97,6 +102,7 @@ public class ProductService {
      * then it is sorted based on the discounted price in the ascending order. Also, if the products have
      * the same discounted price it should be sorted based on ID in the ascending order.
      */
+    @Transactional(readOnly = true)
     public Iterable<Product> findProductsByCategory(String category) {
         List<Product> product = (List<Product>) productRepository.findAllByCategory(category);
         return product.stream().sorted(Comparator.comparing(Product::getAvailability, Comparator.reverseOrder())
@@ -114,6 +120,7 @@ public class ProductService {
      * If the product has the same discount percentage then it should be sorted based on the discount price in the ascending order.
      * Also, if the products has the same discount price it should be sorted based on the ID in the ascending order.
      */
+    @Transactional(readOnly = true)
     public List<Product> findProductsByCategoryAndAvailability(String category, boolean availability) {
         List<Product> products = productRepository.findAllByCategoryAndAvailability(category, availability);
 
@@ -122,7 +129,7 @@ public class ProductService {
                 .thenComparing(Product::getId))
                 .collect(Collectors.toList());
     }
-
+    @Transactional
     public Iterable<Product> deleteProductById(Long id){
         productRepository.deleteById(id);
         return productRepository.findAll();
