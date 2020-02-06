@@ -10,7 +10,7 @@ import { ProductService } from './product.service';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
-import { BasicAuthHttpInterceptorServiceService } from './basic-auth-http-interceptor-service.service';
+import { BasicAuthHttpInterceptorService } from './basic-auth-http-interceptor-service.service';
 import { HeaderComponent } from './header/header.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CreateProductComponent } from './create-product/create-product.component';
@@ -46,7 +46,7 @@ import {MatDialogModule, MatIconModule} from '@angular/material';
       ProductService,
       {
         provide:HTTP_INTERCEPTORS,
-        useClass:BasicAuthHttpInterceptorServiceService,
+        useClass:BasicAuthHttpInterceptorService,
         multi:true
     }
   ],

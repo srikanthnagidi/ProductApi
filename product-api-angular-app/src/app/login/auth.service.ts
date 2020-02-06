@@ -1,3 +1,4 @@
+
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { User } from "../user/user";
@@ -13,7 +14,7 @@ import { SignUp } from '../sign-up/sign-up-model';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  authenticate(username, password) {
+  authenticate(username:string, password:string) {
       let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json'); 
       return this.http.post("http://localhost:8080/login", {"username": username, "password":password}, {
         headers: httpHeaders,
