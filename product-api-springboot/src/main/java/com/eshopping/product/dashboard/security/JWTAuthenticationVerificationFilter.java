@@ -2,6 +2,7 @@ package com.eshopping.product.dashboard.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,12 +37,17 @@ public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilt
         //System.out.println("in JWTAuthenticationVerificationFilter.UsernamePasswordAuthenticationToken");
         String token = request.getHeader("Authorization");
         if (token != null) {
-            String user = JWT.require(Algorithm.HMAC512("SecretKeyToGenJWTs".getBytes()))
-                    .build().verify(token.replace("Bearer ", ""))
-                    .getSubject();
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+            try {
+                String user = JWT.require(Algorithm.HMAC512("SecretKeyToGenJWTs".getBytes()))
+                        .build().verify(token.replace("Bearer ", ""))
+                        .getSubject();
+                if (user != null) {
+                    return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                }
+            }catch (Exception ex){
+                throw new InvalidTokenException("Invalid token");
             }
+
             return null;
         }
         return null;
