@@ -1,0 +1,54 @@
+<app-header></app-header>
+<div class="container">
+  <div class="panel-heading">
+    <div class="col-xs-6">
+      <a href="login" class="active" id="login-form-link">Login</a>
+    </div>
+    <div class="col-xs-6">
+      <a href="sign-up" id="register-form-link">Register</a>
+    </div>
+  </div>
+  <div style="margin: 30px">
+    <form [formGroup]="loginForm">
+      <div class="form-group">
+        <label>Username*</label>
+        <input class="form-control" formControlName="username" type="text" name="username" />
+      </div>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.fname">
+          <div class="error-message"
+            *ngIf="loginForm.get('fname').hasError(error.type) && (loginForm.get('fname').dirty || loginForm.get('fname').touched)">
+            Username is required
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="form-group">
+        <label>Password*</label>
+        <input class="form-control" formControlName="password" type="password" />
+      </div>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.password">
+          <div class="error-message"
+            *ngIf="loginForm.get('password').hasError(error.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+            Password is required
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password*</label>
+        <input class="form-control" formControlName="confirmPassword" type="password" />
+      </div>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.confirmpassword">
+          <div class="error-message"
+            *ngIf="loginForm.get('confirmpassword').hasError(error.type) && (loginForm.get('confirmpassword').dirty || loginForm.get('confirmpassword').touched)">
+            Password do not match
+          </div>
+        </ng-container>
+      </div>
+      <button class="form-control btn btn-primary" [disabled]="!loginForm.valid" (click)="signUp()">Signup</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<app-header></app-header>
+<div class="container" >
+  <table class="table">
+    <thead>
+      <tr  *ngIf="products.length > 0">
+        <th class="text-center">Product Id</th>
+        <th class="text-center">Name</th>
+        <th class="text-center">Category</th>
+        <th class="text-center">Retail Price</th>
+        <th class="text-center">Discounted Price</th>
+        <th class="text-center">Availability</th>
+        <th class="text-center">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products" align="center">
+        <td>{{product.id}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.category}}</td>
+        <td>{{product.retail_price}}</td>
+        <td>{{product.discounted_price}}</td>
+        <td>{{product.availability}}</td>
+        <td><button class="btn btn-danger" (click)="deleteProduct(product.id)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
