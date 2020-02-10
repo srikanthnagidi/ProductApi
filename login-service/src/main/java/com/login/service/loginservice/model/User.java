@@ -11,7 +11,7 @@ import com.login.service.loginservice.annotations.ValidPassword;
 import java.util.Set;
 
 @Entity
-@Table(name = "login_user")
+@Table(name = "users")
 public class User {
 
 	@Id
@@ -37,7 +37,8 @@ public class User {
 
 	@Setter
 	@Getter
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "user_roles",  joinColumns = @JoinColumn(name = "user_id"),  inverseJoinColumns = @JoinColumn(name = "roles_id"))
 	private Set<Role> roles;
 
 }

@@ -1,8 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/srikanth?user=root&password=nsr@6321
+    url: jdbc:mysql://localhost:3306/srikanth?user=root&password=
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
-
