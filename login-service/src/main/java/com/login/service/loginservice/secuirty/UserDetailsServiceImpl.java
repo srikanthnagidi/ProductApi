@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -22,15 +23,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    	System.out.println("inr UserDetails Service Implementation");
         Optional<User> optionalUser = userRepository.findUserByUsername(username);
 
         if (!optionalUser.isPresent()){
             throw new UsernameNotFoundException(username);
         }
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        optionalUser.get().getRoles().forEach(role -> {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-        });
-        return new org.springframework.security.core.userdetails.User(optionalUser.get().getUsername(), optionalUser.get().getPassword(), grantedAuthorities);
+		/*
+		 * Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+		 * optionalUser.get().getRoles().forEach(role -> { grantedAuthorities.add(new
+		 * SimpleGrantedAuthority(role.getRoleName())); });
+		 */
+        return new org.springframework.security.core.userdetails.User(optionalUser.get().getUsername(), optionalUser.get().getPassword(), Collections.emptyList());
     }
 }

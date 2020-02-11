@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class JWTAuthentication extends UsernamePasswordAuthenticationFilter {
-	static final String SECRET_KEY = "Login_Secret";
+	static final String SECRET_KEY = "SecretKeyToGenJWTs";
 	private AuthenticationManager authenticationManager;
 
 	public JWTAuthentication(AuthenticationManager authenticationManager) {

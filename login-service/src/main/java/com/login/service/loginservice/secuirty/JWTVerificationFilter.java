@@ -22,6 +22,7 @@ public class JWTVerificationFilter extends BasicAuthenticationFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		System.out.println("in jwtVerification.doFilter method");
 		String header = request.getHeader("Authorization");
 		if (header == null || !header.startsWith("Bearer ")) {
 			chain.doFilter(request, response);
@@ -33,12 +34,14 @@ public class JWTVerificationFilter extends BasicAuthenticationFilter {
 	}
 
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+		System.out.println("in jwtVerification.getAuthentication method");
 		String token = request.getHeader("Authorization");
 		if (token != null) {
 			try {
 				String user = JWT.require(Algorithm.HMAC512(JWTAuthentication.SECRET_KEY.getBytes())).build()
 						.verify(token.replace("Bearer ", "")).getSubject();
 				if (user != null) {
+					System.out.println(new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>()));
 					return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
 				}
 

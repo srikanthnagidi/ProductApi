@@ -41,4 +41,8 @@ public class UserService {
 		else
 			throw new UsernameNotFoundException("no User with " + username);
 	}
+	
+	public Iterable<User> getAllUsers(){
+		return userRepository.findAll();
+	}
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +26,15 @@ public class UserController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
         try {
             User user1 = userService.findUserByUsername(user.getUsername());
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (UsernameNotFoundException e) {
             userService.saveUser(user);
         }
         return ResponseEntity.ok(HttpStatus.CREATED);
+    }
+    
+    @GetMapping
+    public Iterable<User> getAllUsers(){
+    	return userService.getAllUsers();
     }
 }

@@ -1,9 +1,12 @@
 package com.eshopping.product.dashboard.controller;
 
 import com.eshopping.product.dashboard.model.Product;
+import com.eshopping.product.dashboard.security.JWTAuthenticationVerificationFilter;
 import com.eshopping.product.dashboard.service.ProductService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +38,7 @@ public class ProductsController {
      */
     @GetMapping
     public Iterable<Product> getAllTheProducts() {
+    	
         return productService.findAllProducts();
     }
 

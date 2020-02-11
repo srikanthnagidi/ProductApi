@@ -38,7 +38,7 @@ public class User {
 	@Setter
 	@Getter
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "user_roles",  joinColumns = @JoinColumn(name = "user_id"),  inverseJoinColumns = @JoinColumn(name = "roles_id"))
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"))
 	private Set<Role> roles;
 
 }

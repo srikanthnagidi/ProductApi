@@ -1,9 +1,7 @@
 package com.eshopping.product.dashboard;
 
-import com.eshopping.product.dashboard.model.Product;
-import com.eshopping.product.dashboard.model.User;
-import com.eshopping.product.dashboard.repository.ProductRepository;
-import com.eshopping.product.dashboard.repository.UserRepository;
+import java.util.stream.Stream;
+
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +9,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAut
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.stream.Stream;
+import com.eshopping.product.dashboard.model.Product;
+import com.eshopping.product.dashboard.repository.ProductRepository;
 
 @SpringBootApplication(exclude = {SecurityFilterAutoConfiguration.class})
 public class Application {
@@ -25,7 +24,7 @@ public class Application {
     }
 
     @Bean
-    public ApplicationRunner init(ProductRepository productRepository, UserRepository userRepository) {
+    public ApplicationRunner init(ProductRepository productRepository) {
         return args -> {
             Stream.of(new Product(1L, "Dressing Gown", "Full Body Outfits", 303.0, 251.49, true),
                     new Product(2L, "Shoes", "Footwear", 150.0, 123.0, true),
@@ -34,8 +33,6 @@ public class Application {
                     new Product(5L, "Ball Gown", "Full Body Outfits", 337.0, 272.97, true),
                     new Product(6L, "Shawl", "Accessories", 283.0, 260.86, true)
             ).forEach(product -> productRepository.save(product));
-            Stream.of(new User("srikanth", "password"),
-                    new User("manoj", "abcd1234")).forEach(user -> userRepository.save(user));
         };
     }
 
