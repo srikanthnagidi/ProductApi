@@ -8,7 +8,7 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class ProductService {
 
-    url = "http://localhost:8080"
+    url = "http://192.168.0.24:8083"
   constructor(private http: HttpClient) { }
 
   getProducts(){

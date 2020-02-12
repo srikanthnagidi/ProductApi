@@ -12,11 +12,13 @@ import { SignUp } from '../sign-up/sign-up-model';
   providedIn: "root"
 })
 export class AuthService {
+
+    loginUrl = "http://192.168.0.24:8082/";
   constructor(private http: HttpClient) {}
 
   authenticate(username:string, password:string) {
       let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json'); 
-      return this.http.post("http://localhost:8080/login", {"username": username, "password":password}, {
+      return this.http.post(this.loginUrl + "login", {"username": username, "password":password}, {
         headers: httpHeaders,
         observe: 'response',
         responseType: 'text'
@@ -25,7 +27,7 @@ export class AuthService {
   signUp(signUp:SignUp){
     let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json'); 
     //console.log(signUp);
-    return this.http.post("http://localhost:8080/users/sign-up", signUp, {
+    return this.http.post(this.loginUrl + "users/sign-up", signUp, {
       headers: httpHeaders,
       observe: 'response',
       responseType: 'text'
